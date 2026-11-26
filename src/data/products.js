@@ -1,6 +1,21 @@
 
 const products = [
   {
+    id: 1,
+    name: 'Tênis Puma Juvenil 2.0',
+    category: 'Tênis',
+    brand: 'Puma',
+    condition: 'Novo',
+    price: 199.90,
+    priceDiscount: 149.90,
+    image: '/tenisPuma.png',
+    gallery: ['/tenisPuma.png'],
+    colors: [
+      { name: 'Azul', value: '#a9fff4' }
+    ],
+    description: 'Um modelo versátil para diferentes ocasiões.'
+  },
+  {
     id: 2,
     name: 'Tênis Casual Vermelho',
     category: 'Tênis',
@@ -82,7 +97,7 @@ const products = [
     id: 7,
     name: 'Tênis Casual Premium',
     category: 'Tênis',
-    brand: 'Adidas',
+    brand: 'Puma',
     condition: 'Novo',
     price: 429.90,
     priceDiscount: 359.90,

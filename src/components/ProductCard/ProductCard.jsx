@@ -1,6 +1,16 @@
+
 import { Link } from 'react-router-dom';
 
 function ProductCard({ product }) {
+  const hasDiscount = product.price > product.priceDiscount;
+
+  function formatPrice(price) {
+    return price.toLocaleString('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    });
+  }
+
   return (
     <Link to={`/product/${product.id}`} className="product-card">
       <div className="product-card-image">
@@ -11,12 +21,14 @@ function ProductCard({ product }) {
       <h3>{product.name}</h3>
 
       <div className="product-prices">
-        <span className="old-price">
-          R$ {product.price.toFixed(2).replace('.', ',')}
-        </span>
+        {hasDiscount && (
+          <span className="old-price">
+            {formatPrice(product.price)}
+          </span>
+        )}
 
         <strong>
-          R$ {product.priceDiscount.toFixed(2).replace('.', ',')}
+          {formatPrice(product.priceDiscount)}
         </strong>
       </div>
     </Link>

@@ -12,9 +12,9 @@ function Footer() {
           <img src={logo} alt="Digital Store" className="footer-logo" />
 
           <p>
-            A Digital Store oferece produtos selecionados para quem procura
-            qualidade, estilo e praticidade. Encontre aqui seus próximos
-            produtos favoritos!
+            A Digital Store oferece tênis selecionados para quem procura
+            qualidade, conforto e estilo. Encontre aqui seu próximo
+            par favorito!
           </p>
 
           <div className="social-links">
@@ -42,10 +42,6 @@ function Footer() {
 
         <div className="footer-info">
           <h3>Categorias</h3>
-          <a href="#camisetas">Camisetas</a>
-          <a href="#calcas">Calças</a>
-          <a href="#bones">Bonés</a>
-          <a href="#headphones">Headphones</a>
           <a href="#tenis">Tênis</a>
         </div>
 

@@ -1,7 +1,6 @@
-
 import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import logo from '../../assets/logo-header.svg';
+import Logo from '../Logo/Logo';
 import cart from '../../assets/mini-cart.svg';
 
 function Header() {
@@ -21,9 +20,7 @@ function Header() {
   return (
     <header className="header">
       <div className="header-top container">
-        <NavLink to="/">
-          <img className="header-logo" src={logo} alt="Digital Store" />
-        </NavLink>
+        <Logo />
 
         <form className="search-form" onSubmit={handleSearch}>
           <input

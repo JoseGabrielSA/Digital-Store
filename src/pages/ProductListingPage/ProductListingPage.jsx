@@ -1,3 +1,4 @@
+
 import { useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import products from '../../data/products';
@@ -5,9 +6,8 @@ import ProductListing from '../../components/ProductListing/ProductListing';
 import FilterGroup from '../../components/FilterGroup/FilterGroup';
 import normalizeText from '../../utils/normalizeText';
 
-
 function ProductListingPage() {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const searchTerm = searchParams.get('filter') || '';
 
   const [categories, setCategories] = useState([]);
@@ -23,20 +23,35 @@ function ProductListingPage() {
     );
   }
 
+  function clearAll() {
+    setSearchParams({});
+    setCategories([]);
+    setBrands([]);
+    setConditions([]);
+    setSort('relevance');
+  }
+
+  const hasActiveFilters =
+    searchTerm ||
+    categories.length > 0 ||
+    brands.length > 0 ||
+    conditions.length > 0 ||
+    sort !== 'relevance';
+
   const filteredProducts = useMemo(() => {
     let result = [...products];
 
     if (searchTerm) {
-  const normalizedSearch = normalizeText(searchTerm);
+      const normalizedSearch = normalizeText(searchTerm);
 
-  result = result.filter((product) => {
-    const productInfo = normalizeText(
-      `${product.name} ${product.category} ${product.brand}`
-    );
+      result = result.filter((product) => {
+        const productInfo = normalizeText(
+          `${product.name} ${product.category} ${product.brand}`
+        );
 
-    return productInfo.includes(normalizedSearch);
-  });
-}
+        return productInfo.includes(normalizedSearch);
+      });
+    }
 
     if (categories.length) {
       result = result.filter((product) =>
@@ -115,17 +130,11 @@ function ProductListingPage() {
             }
           />
 
-          <button
-            className="clear-filters"
-            onClick={() => {
-              setCategories([]);
-              setBrands([]);
-              setConditions([]);
-              setSort('relevance');
-            }}
-          >
-            Limpar filtros
-          </button>
+          {hasActiveFilters && (
+            <button className="clear-filters" onClick={clearAll}>
+              Limpar tudo
+            </button>
+          )}
         </aside>
 
         <section className="listing-results">

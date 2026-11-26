@@ -1,11 +1,16 @@
+
 import { useState } from 'react';
 
 function Gallery({
-  images,
+  images = [],
   showThumbs = false,
   className = ''
 }) {
   const [current, setCurrent] = useState(0);
+
+  if (images.length === 0) {
+    return null;
+  }
 
   function previous() {
     setCurrent((value) =>
@@ -22,26 +27,43 @@ function Gallery({
   return (
     <div className={`gallery ${className}`}>
       <div className="gallery-main">
-        <img src={images[current]} alt={`Imagem ${current + 1}`} />
+        <img
+          src={images[current]}
+          alt={`Imagem ${current + 1} de ${images.length}`}
+        />
 
-        <button className="gallery-arrow left" onClick={previous}>
-          ‹
-        </button>
+        {images.length > 1 && (
+          <>
+            <button
+              className="gallery-arrow left"
+              onClick={previous}
+              aria-label="Imagem anterior"
+            >
+              ‹
+            </button>
 
-        <button className="gallery-arrow right" onClick={next}>
-          ›
-        </button>
+            <button
+              className="gallery-arrow right"
+              onClick={next}
+              aria-label="Próxima imagem"
+            >
+              ›
+            </button>
+          </>
+        )}
       </div>
 
-      {showThumbs && (
+      {showThumbs && images.length > 1 && (
         <div className="gallery-thumbs">
           {images.map((image, index) => (
             <button
-              key={image}
+              key={`${image}-${index}`}
               className={current === index ? 'selected' : ''}
               onClick={() => setCurrent(index)}
+              aria-label={`Selecionar imagem ${index + 1}`}
+              aria-pressed={current === index}
             >
-              <img src={image} alt={`Miniatura ${index + 1}`} />
+              <img src={image} alt="" />
             </button>
           ))}
         </div>
